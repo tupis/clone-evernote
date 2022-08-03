@@ -15,6 +15,7 @@ const LoginForm = () => {
         e.preventDefault();
         try {
             const login = await UserServices.login({email, password})
+            localStorage.setItem("user",JSON.stringify(login.data))
             navigate('/notes')
         } catch (error) {
             setError(true)
@@ -23,7 +24,6 @@ const LoginForm = () => {
             }, 3000);
         }
     }
-
 
     return (
         <>
