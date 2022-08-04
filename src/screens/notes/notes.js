@@ -1,10 +1,9 @@
-import Header from '../../components/header/header';
+import HeaderLogged from "../../components/header_logged/header_logged";
 
 const NotesScreen = () => {
     return (
         <>
-            <Header />
-            <h1>Notes</h1>
+            <HeaderLogged />
         </>
     );
 }
