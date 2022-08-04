@@ -1,0 +1,22 @@
+@import './custom_colors';
+
+.notes{
+    height: calc(100vh - 70px);
+    margin: 0;
+}
+
+.bm-menu{
+    background-color: white;
+    padding-top: 10px;
+}
+
+.list-item{
+    .wrapper-text-area{
+        margin-bottom: 15px;
+    }
+    &.is-active{
+        .wrapper-text-area{
+            background-color: #d3d3d3;
+        }
+    }
+}
