@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navbar, Container, Column, Button, Dropdown } from 'rbx';
+import { Navbar, Column, Button, Dropdown } from 'rbx';
 import logoImage from '../../assets/images/logo-branca.png';
 import '../../styles/header.scss';
 import UserServices from '../../services/users';
@@ -11,7 +11,7 @@ const HeaderLogged = (props) => {
     const [redirectToHome, setRedirectToHome] = useState(false);
 
     const logOut = async () => {
-        await UserService.logout();
+        await UserServices.logout();
         setRedirectToHome(true);
     }
 
@@ -49,7 +49,7 @@ const HeaderLogged = (props) => {
                                     <Dropdown.Divider />
 
                                     <Dropdown.Item as="div">
-                                        <a href="#" onClick={e => logOut()}>LogOut</a>
+                                        <a href="#" onClick={logOut}>LogOut</a>
                                     </Dropdown.Item>
                                 </Dropdown.Content>
                             </Dropdown.Menu>
