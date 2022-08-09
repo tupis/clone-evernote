@@ -4,22 +4,13 @@ import HeaderLogged from "../../../components/header_logged/header_logged";
 import UsersEditForm from "../../../components/users/users_form";
 import { useState, useEffect } from 'react';
 import PasswordEditor from "../../../components/users/password_forms.js/password_form";
+import DeleteButton from "../../../components/users/delete_button/delete_button";
 
 const UsersEditScreen = () => {
-    const [nameHeader, setNameHeader] = useState('')
-
-    const initializeUser = async () => {
-        const response = await JSON.parse(localStorage.getItem('user'));
-        setNameHeader(response.name)
-    }
-
-    useEffect(() => {
-        initializeUser()
-    }, [])
-
+    
     return (
         <>
-            <HeaderLogged nameHeader={nameHeader}/>
+            <HeaderLogged/>
             <Section size="medium" className="users">
                 <Container>
                         <Column.Group centered className="users-edit">
@@ -29,7 +20,7 @@ const UsersEditScreen = () => {
                                 </Title>
                                 <Card>
                                     <Card.Content>
-                                        <UsersEditForm setNameHeader={setNameHeader}/>
+                                        <UsersEditForm/>
                                     </Card.Content>
                                 </Card>
                             </Column>
@@ -49,7 +40,7 @@ const UsersEditScreen = () => {
                         </Column.Group>
                         <Column.Group centered>
                             <Column size={4} className="has-text-right">
-                                Users Delete Button...
+                                <DeleteButton />
                             </Column>
                         </Column.Group>
                 </Container> 
