@@ -2,7 +2,6 @@ import { Column, Section, Title, Container, Card, Button } from "rbx";
 import "../../../styles/users.scss";
 import HeaderLogged from "../../../components/header_logged/header_logged";
 import UsersEditForm from "../../../components/users/users_form";
-import { useState, useEffect } from 'react';
 import PasswordEditor from "../../../components/users/password_forms.js/password_form";
 import DeleteButton from "../../../components/users/delete_button/delete_button";
 
