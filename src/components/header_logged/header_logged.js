@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar, Column, Button, Dropdown } from 'rbx';
 import logoImage from '../../assets/images/logo-branca.png';
 import '../../styles/header.scss';
@@ -7,9 +7,9 @@ import { Navigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
-const HeaderLogged = ({setIsOpen, isOpen}) => {
+const HeaderLogged = ({setIsOpen, isOpen, nameHeader}) => {
     const [redirectToHome, setRedirectToHome] = useState(false);
-
+    
     const logOut = async () => {
         await UserServices.logout();
         setRedirectToHome(true);
@@ -59,13 +59,13 @@ const HeaderLogged = ({setIsOpen, isOpen}) => {
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <Button className="button" color="white" outlined>
-                                    <span>Tupi ▼</span>
+                                    <span>{nameHeader} ▼</span>
                                 </Button>
                             </Dropdown.Trigger>
                                 <Dropdown.Menu>
                                     <Dropdown.Content>
                                         <Dropdown.Item as="div">
-                                            <Link to="/users/edit">User Edit</Link>
+                                            <Link to="/user/edit">User Edit</Link>
                                         </Dropdown.Item>
 
                                         <Dropdown.Divider />
