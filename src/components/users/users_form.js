@@ -19,16 +19,26 @@ const UsersEditForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await UserServices.update({ email, name });
-            setStatus("success")
-            window.location.reload()
-        } catch (err) {
-            setStatus("error")
+
+        const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+        if(validateEmail.test(email)){
+            try {
+                await UserServices.update({ email, name });
+                setStatus("success")
+                window.location.reload()
+            } catch (err) {
+                setStatus("error")
+                setTimeout(()=>{
+                    setStatus(null)
+                }, 3000)
+            }
+        } else {
+            setStatus("invalidEmail")
+            setTimeout(()=>{
+                setStatus(null)
+            }, 3000)
         }
-        setTimeout(()=>{
-            setStatus(null)
-        }, 3000)
     }
 
     return ( 
@@ -76,6 +86,9 @@ const UsersEditForm = () => {
                 }
                 {status === 'error' &&
                     <Help color='danger'>Failed to update</Help>
+                }
+                {status === 'invalidEmail' &&
+                    <Help color='danger'>Email Invalid</Help>
                 }
             </form>
         </>

@@ -13,14 +13,25 @@ function RegisterForm() {
 
     const HandleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const user = await UserServices.register({ name, email, password })
-            navigate('/login')
-        } catch (error) {
+
+        const validateEmail =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+        if(validateEmail.test(email)){
+            try {
+                const user = await UserServices.register({ name, email, password })
+                navigate('/login')
+            } catch (error) {
+                setError(true)
+                setTimeout(() => {
+                    setError(false)
+                }, 3000);
+            }
+        } else {
             setError(true)
             setTimeout(() => {
                 setError(false)
             }, 3000);
+            
         }
     } 
 
@@ -77,7 +88,7 @@ function RegisterForm() {
                             </Column.Group>
                         </Control>
                     </Field>
-                    {error && <Help color="danger">Email or Password invalid</Help>}
+                    {error && <Help color="danger">Email invalid</Help>}
                 </Column>
             </form>
         </Column.Group>
