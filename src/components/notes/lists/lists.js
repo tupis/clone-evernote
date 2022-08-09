@@ -1,8 +1,10 @@
-import { Column, Tag, Title, List } from "rbx";
+import { Column, Tag, Title, List, Button } from "rbx";
 import Moment from 'moment';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 
-function ListNotes({ notes, selectNote, currentNote }) {
+function ListNotes({ notes, selectNote, currentNote, createNote, deleteNote }) {
     return (
         <>
             <Column.Group breakpoint="mobile">
@@ -10,6 +12,11 @@ function ListNotes({ notes, selectNote, currentNote }) {
                     <Title size={6}>
                         {notes.length} Notes
                     </Title>
+                </Column>
+                <Column size={2}>
+                    <Button state="active" color="custom-purple" outlined size="small" onClick={() => createNote('Titulo', 'Body')}>
+                        Notes +
+                    </Button>
                 </Column>
             </Column.Group>
 
@@ -32,6 +39,13 @@ function ListNotes({ notes, selectNote, currentNote }) {
                                     <Tag color="dark">
                                         {Moment(note.created_at).format('DD/MM')}
                                     </Tag>
+                                </Column>
+                                <Column size={2}>
+                                    <FontAwesomeIcon 
+                                        icon={faTrash}
+                                        onClick={() => deleteNote(note)}
+                                        color="grey"
+                                    />
                                 </Column>
                             </Column.Group>
                         </div>
