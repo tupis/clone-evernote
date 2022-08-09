@@ -4,6 +4,8 @@ import { push as Menu } from 'react-burger-menu';
 import { Column } from 'rbx';
 import NotesServices from '../../services/notes'
 import List from './lists/lists'
+import NotesEditor from './editor/editor';
+import Search from './search/search';
 
 
 const Notes = ({isOpen, setIsOpen}) => {
@@ -19,13 +21,39 @@ const Notes = ({isOpen, setIsOpen}) => {
         const response = await NotesServices.index();
         if (response.data.length >= 1) {
             setNotes(response.data.reverse())
+            setCurrentNote(response.data[0])
+        } else {
+            setNotes([])
         }
-        setCurrentNote(response.data[0])
+    }
+
+    const createNote = async (title, body) => {
+        const note = await NotesServices.create(title, body);
+        fetchNotes()
     }
 
     const selectNote = (id) => {
         const note = notes.find(note => note._id === id)
         setCurrentNote(note)
+    }
+
+    const deleteNote = async (note) => {
+        await NotesServices.delete(note._id);
+        fetchNotes()
+    }
+
+    const updateNote = async (oldNote, params) => {
+        const updatedNote = await NotesServices.update(oldNote._id, params);
+        const index = notes.indexOf(oldNote);
+        const newNotes = notes;
+        newNotes[index] = updatedNote.data;
+        setNotes(newNotes);
+        setCurrentNote(updatedNote.data)
+    }
+
+    const searchNote = async (query) => {
+        const response = await NotesServices.search(query);
+        setNotes(response.data)
     }
 
     return (
@@ -42,14 +70,23 @@ const Notes = ({isOpen, setIsOpen}) => {
                     >
                     <Column.Group>
                         <Column size={10} offset={1}>
-                            Search...
+                            <Search searchNote={searchNote} fetchNotes={fetchNotes}/>
                         </Column>
                     </Column.Group>
-                    <List notes={notes} selectNote={selectNote} currentNote={currentNote} />
+                    <List 
+                        notes={notes} 
+                        selectNote={selectNote} 
+                        currentNote={currentNote} 
+                        createNote={createNote}
+                        deleteNote={deleteNote}
+                    />
                 </Menu>
 
                 <Column size={12} className="notes-editor" id="notes-editor">
-                    Editor...
+                    <NotesEditor 
+                        currentNote={currentNote} 
+                        updateNote={updateNote}
+                    />
                 </Column>
             </Column.Group>
         </>   
