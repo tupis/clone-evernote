@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button, Field, Control, Input, Column, Help, Label } from "rbx";
 import UserServices from '../../services/users';
 
-const UsersEditForm = ({setNameHeader}) => {
+const UsersEditForm = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [status, setStatus] = useState(null);
@@ -11,7 +11,6 @@ const UsersEditForm = ({setNameHeader}) => {
         const user = await JSON.parse(localStorage.getItem('user'));
         setEmail(user.email);
         setName(user.name);
-        setNameHeader(user.name)
     }
 
     useEffect(() =>{
@@ -22,8 +21,8 @@ const UsersEditForm = ({setNameHeader}) => {
         e.preventDefault();
         try {
             await UserServices.update({ email, name });
-            setNameHeader(name)
             setStatus("success")
+            window.location.reload()
         } catch (err) {
             setStatus("error")
         }
