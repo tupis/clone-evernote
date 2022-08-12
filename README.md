@@ -1,6 +1,6 @@
 # Clone do Evernote
 
-Web app de notas conctado com api
+Web app de notas
 
 ## 🚀 Começando
 
